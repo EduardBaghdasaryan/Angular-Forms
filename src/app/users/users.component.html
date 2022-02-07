@@ -1,0 +1,12 @@
+<h3>Users</h3>
+<form #filterForm = "ngForm">  
+    <div>
+        <input type="text" name = "search"  placeholder="Search users" >
+    </div>
+</form>
+<button (click) = "onClick()">Click</button>
+<div> 
+   
+</div>
+<br>
+    <app-user-card *ngFor="let user of users.values" [user]="user"></app-user-card>

@@ -1,0 +1,23 @@
+<form [formGroup]="loginForm">
+    <div>
+    <input formControlName = "login" type="email" placeholder="Email" >
+    <br/>
+    <span *ngIf="!loginForm.controls['login'].valid && !loginForm.controls['login'].pristine">Login is required</span>
+    </div>
+    <br>
+    <div>
+    <input formControlName = "password" type="password" placeholder="Password">
+    <div *ngIf="loginForm.controls['password'].invalid && !loginForm.controls['password'].pristine">
+        <span *ngIf="loginForm.controls['password'].errors?.['required']" class="error-message">password is
+            required</span>
+        <span *ngIf="loginForm.controls['password'].errors?.['minlength']" class="error-message">Min length should
+            be {{loginForm.controls['password'].getError('minlength').requiredLength}}</span>
+    </div>
+    </div>
+    <button [disabled]="loginForm.invalid" (click)="loadData()">Login</button>
+    <mat-spinner [diameter]="20"   *ngIf="showSpinner"></mat-spinner>
+    <br>
+    <button type="button">
+        <a a routerLink="Register">Register</a>
+    </button> 
+</form> 
