@@ -1,24 +1,44 @@
 <h3>Register</h3>
-<form [formGroup]="registerForm">
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <div>
-        <input placeholder="First Name" type="text">
+        <input [ngClass]="registerForm.controls['firstName'].invalid && registerForm.controls['firstName'].touched ? 'invalid': ''"
+        formControlName = "firstName" type="text" placeholder="Firstname" >
+        <div *ngIf="registerForm.controls['firstName'].invalid && registerForm.controls['firstName'].touched">
+            <span *ngIf="registerForm.controls['firstName'].errors?.['required']">Firstname is required</span>
+        </div>  
+        </div>
+    <div>
+        <input [ngClass]="registerForm.controls['lastName'].invalid && registerForm.controls['lastName'].touched ? 'invalid': ''"
+        formControlName = "lastName" type="text" placeholder="Lastname">
+        <div *ngIf="registerForm.controls['lastName'].invalid && registerForm.controls['lastName'].touched">
+            <span *ngIf="registerForm.controls['lastName'].errors?.['required']">Lastname is required</span>
+        </div>  
+        </div>
+    <div>
+         <input [ngClass]="registerForm.controls['email'].invalid && registerForm.controls['email'].touched ? 'invalid': ''"
+        formControlName = "email" type="email" placeholder="Email" >
+        <div *ngIf="registerForm.controls['email'].invalid && registerForm.controls['email'].touched">
+            <span *ngIf="registerForm.controls['email'].errors?.['required']">Email is required</span>
+            <span *ngIf="registerForm.controls['email'].errors?.['email']">Email must be in email formats</span>
+        </div>  
     </div>
     <div>
-        <input placeholder="Last Name" type="text">
+        <input   [ngClass]="registerForm.controls['password'].invalid && registerForm.controls['password'].touched ? 'invalid': ''"
+    formControlName = "password" type="password" placeholder="Password">
+    <div *ngIf="registerForm.controls['password'].invalid && registerForm.controls['password'].touched">
+        <span *ngIf="registerForm.controls['password'].errors?.['required']">password is
+            required</span>
+        <span *ngIf="registerForm.controls['password'].errors?.['minlength']" class="error-message">Min length should
+            be {{registerForm.controls['password'].getError('minlength').requiredLength}}</span>
+    </div>
     </div>
     <div>
-        <input placeholder="Email" type="email">
-    </div>
-    <div>
-        <input placeholder="Password" type="password">
-    </div>
-    <div>
-    <button [disabled]="registerForm.invalid"(click)="loadData()">Register</button>
+    <button [disabled]="registerForm.invalid">Register</button>
     <mat-spinner  [diameter]="20" *ngIf="showSpinner"></mat-spinner>
 </div>
     <div>
     <button type="button">
-        <a a routerLink="Login">Login</a>
+        <a  routerLink="Login">Login</a>
     </button>
 </div>
 

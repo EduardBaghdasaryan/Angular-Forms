@@ -20,7 +20,7 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {}
 
-loadData() {
+onSubmit() {
   this.showSpinner = true
   setTimeout(()=>{
     this.showSpinner=false

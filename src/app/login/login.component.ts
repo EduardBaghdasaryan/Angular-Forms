@@ -7,7 +7,7 @@ import { RegisterComponent } from '../register/register.component';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent  {
   loginForm = new FormGroup ({
     login : new FormControl("",[Validators.required,Validators.email]),
     password : new FormControl("",[Validators.required,Validators.minLength(6)]),
@@ -15,11 +15,10 @@ export class LoginComponent implements OnInit {
   showSpinner = false
   constructor() {}
 
-  ngOnInit(): void {}
-  loadData() {
+  onSubmit() { 
+   
     this.showSpinner = true
     setTimeout(()=>{
       this.showSpinner=false
-    },3000)
+    },3000)}
   }
-}

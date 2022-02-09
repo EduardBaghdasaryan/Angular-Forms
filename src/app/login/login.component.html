@@ -1,23 +1,28 @@
-<form [formGroup]="loginForm">
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <div>
-    <input formControlName = "login" type="email" placeholder="Email" >
+    <input [ngClass]="loginForm.controls['login'].invalid && loginForm.controls['login'].touched ? 'invalid': ''"
+    formControlName = "login" type="email" placeholder="Email" >
     <br/>
-    <span *ngIf="!loginForm.controls['login'].valid && !loginForm.controls['login'].pristine">Login is required</span>
+    <div *ngIf="loginForm.controls['login'].invalid && loginForm.controls['login'].touched">
+        <span *ngIf="loginForm.controls['login'].errors?.['required']">Login is required</span>
+        <span *ngIf="loginForm.controls['login'].errors?.['email']">Login must be in email formats</span>
     </div>
     <br>
+    </div>
     <div>
-    <input formControlName = "password" type="password" placeholder="Password">
-    <div *ngIf="loginForm.controls['password'].invalid && !loginForm.controls['password'].pristine">
-        <span *ngIf="loginForm.controls['password'].errors?.['required']" class="error-message">password is
+    <input   [ngClass]="loginForm.controls['password'].invalid && loginForm.controls['password'].touched ? 'invalid': ''"
+    formControlName = "password" type="password" placeholder="Password">
+    <div *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched">
+        <span *ngIf="loginForm.controls['password'].errors?.['required']">password is
             required</span>
         <span *ngIf="loginForm.controls['password'].errors?.['minlength']" class="error-message">Min length should
             be {{loginForm.controls['password'].getError('minlength').requiredLength}}</span>
     </div>
     </div>
-    <button [disabled]="loginForm.invalid" (click)="loadData()">Login</button>
+    <button [disabled]="loginForm.invalid">Login</button>
     <mat-spinner [diameter]="20"   *ngIf="showSpinner"></mat-spinner>
     <br>
     <button type="button">
-        <a a routerLink="Register">Register</a>
+        <a routerLink="Register">Register</a>
     </button> 
 </form> 
